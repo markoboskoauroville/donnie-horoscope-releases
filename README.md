@@ -10,6 +10,8 @@ and the original DOS screens are kept as a *Classic* look in its honour. It is n
 
 ## Download
 
+**Web page: [donniehoroscope.pages.dev](https://donniehoroscope.pages.dev/)**
+
 | | |
 |---|---|
 | 📱 **The app** | [Latest release](https://github.com/markoboskoauroville/donnie-horoscope-releases/releases/latest): download `DonnieHoroscope-vN.apk` there and open it on your Android phone (allow installing from this source when asked). Installing over an older version keeps your charts. |

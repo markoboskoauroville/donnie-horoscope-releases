@@ -125,13 +125,14 @@
 </main>
 <script>
   // Turn on the buttons for files that are published; show version and size of the app.
-  function enable(id, label) {
+  // (hosts like Cloudflare Pages answer unknown paths with this page, so check the type, not just 200)
+  function enable(id, label, type) {
     var a = document.getElementById(id);
-    fetch(a.getAttribute('href'), { method: 'HEAD' }).then(function (r) {
-      if (r.ok) { a.classList.remove('off'); a.textContent = label; }
+    fetch(a.getAttribute('href'), { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      if (r.ok && (r.headers.get('content-type') || '').indexOf(type) >= 0) { a.classList.remove('off'); a.textContent = label; }
     }).catch(function () {});
   }
-  enable('manual', 'Open');
+  enable('manual', 'Open', 'pdf');
   fetch('downloads/latest.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
     if (!j) return;
     var a = document.getElementById('apk');
@@ -141,7 +142,8 @@
   // screenshots, once published (img/shots/1.png ...)
   (function load(i) {
     var img = new Image();
-    img.onload = function () { img.alt = 'Screenshot ' + i; img.loading = 'lazy'; document.getElementById('shots').appendChild(img); if (i < 8) load(i + 1); };
+    img.onload = function () {
+      if (!img.naturalWidth) return; img.alt = 'Screenshot ' + i; img.loading = 'lazy'; document.getElementById('shots').appendChild(img); if (i < 8) load(i + 1); };
     img.src = 'img/shots/' + i + '.png';
   })(1);
 </script>
