@@ -1,4 +1,4 @@
-# Publishes this site to Cloudflare Pages (https://donihoroscope.pages.dev) on every push to main.
+# Publishes this site to Cloudflare Pages (https://donniehoroscope.pages.dev) on every push to main.
 # Needs repo secrets CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID.
 name: Cloudflare Pages
 
@@ -17,7 +17,7 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      PROJECT: donihoroscope
+      PROJECT: donniehoroscope
     steps:
       - uses: actions/checkout@v4
 
