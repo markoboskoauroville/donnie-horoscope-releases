@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donnie Horoscope</title>
+<meta name="description" content="Donnie Horoscope: an astrology app for Android, a new life for the 1992 MS-DOS program ZodiacSigns V1.66. Download the app, the manual and chart packs.">
+<meta name="theme-color" content="#0B1026">
+<link rel="icon" href="img/logo.png">
+<style>
+  :root {
+    --bg: #0B1026; --surface: #151C3D; --surface2: #1F2850; --ink: #EEF0FF; --sub: #9AA3C7;
+    --line: #2C3666; --gold: #FFD54A; --on-gold: #1A1A1A;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+  header { text-align: center; padding: 32px 0 8px; }
+  header img { width: 148px; height: 148px; border-radius: 32px; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+  h1 { font-size: 2rem; margin: 18px 0 4px; letter-spacing: .01em; }
+  .tag { color: var(--sub); margin: 0 auto; max-width: 34em; }
+  h2 { font-size: 1.25rem; color: var(--gold); margin: 36px 0 12px; }
+  .cards { display: grid; gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; gap: 16px; align-items: center; }
+  .card .ico { font-size: 2rem; width: 3rem; text-align: center; flex: none; }
+  .card .txt { flex: 1; min-width: 0; }
+  .card b { display: block; font-size: 1.08rem; }
+  .card small { color: var(--sub); display: block; margin-top: 2px; }
+  .btn { display: inline-block; flex: none; text-decoration: none; text-align: center; font-weight: 700;
+         background: var(--gold); color: var(--on-gold); padding: 13px 18px; border-radius: 14px; min-width: 7.5em; min-height: 48px; }
+  .btn.off { background: var(--surface2); color: var(--sub); pointer-events: none; }
+  ol, ul { padding-left: 1.3em; }
+  li { margin: 6px 0; }
+  .box { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 6px 20px; }
+  .shots { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; }
+  .shots img { height: 420px; border-radius: 16px; border: 1px solid var(--line); scroll-snap-align: start; }
+  .shots:empty { display: none; }
+  code { background: var(--surface2); padding: 1px 6px; border-radius: 6px; font-size: .92em; overflow-wrap: anywhere; }
+  footer { color: var(--sub); font-size: .85rem; text-align: center; margin-top: 40px; }
+  footer a, .box a { color: var(--gold); }
+  @media (max-width: 520px) {
+    .card { flex-wrap: wrap; }
+    .btn { width: 100%; }
+    .shots img { height: 360px; }
+    h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="img/logo.png" alt="Donnie Horoscope logo: Donnie the dog under the stars">
+    <h1>Donnie Horoscope</h1>
+    <p class="tag">An astrology app for Android: a new life for <b>ZodiacSigns V1.66</b>, an MS-DOS astrology
+      program from 1992. Same calculations, exactly. A modern interface made for fingers, and the original DOS
+      screens kept as a <i>Classic</i> look. Named after Donnie, a much-loved dog.</p>
+  </header>
+
+  <h2>Downloads</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="ico">📱</div>
+      <div class="txt"><b>The app</b><small id="apk-info">Android 7 or newer</small></div>
+      <a class="btn off" id="apk" href="downloads/DonnieHoroscope-latest.apk" download>Coming soon</a>
+    </div>
+    <div class="card">
+      <div class="ico">📖</div>
+      <div class="txt"><b>User manual</b><small>Illustrated guide to every screen (PDF)</small></div>
+      <a class="btn off" id="manual" href="donnie-horoscope-manual.pdf">Coming soon</a>
+    </div>
+    <div class="card">
+      <div class="ico">🗂️</div>
+      <div class="txt"><b>Silvana's Horoscopes Pack</b><small>49 charts as a chart pack (.zip, 7 KB)</small></div>
+      <a class="btn" id="pack" href="packs/Silvanas-Horoscopes-Pack.zip" download>Download</a>
+    </div>
+  </div>
+
+  <div class="shots" id="shots"></div>
+
+  <h2>Install the app</h2>
+  <div class="box">
+    <ol>
+      <li>Tap <b>Download</b> under <i>The app</i>. The file is <code>DonnieHoroscope-latest.apk</code>.</li>
+      <li>Open the downloaded file (from the notification or the <i>Files</i> app).</li>
+      <li>Android may say it can't install apps from this source: tap <b>Settings</b>, turn on
+        <b>Allow from this source</b> for your browser or file manager, and go back.</li>
+      <li>Tap <b>Install</b>, then <b>Open</b>.</li>
+    </ol>
+    <p><b>Updating:</b> install the newer APK over the old one, the same way. Your charts and settings stay.
+      In the app, <i>More → Updates and manual → Open download page</i> brings you back here.</p>
+  </div>
+
+  <h2>Open a chart pack</h2>
+  <div class="box">
+    <ol>
+      <li>Download the pack (a <code>.zip</code> file of charts).</li>
+      <li>In Donnie Horoscope open <b>Charts → Open chart pack (.zip)…</b> and pick the file.
+        Or open the .zip from your file manager and choose <i>Donnie Horoscope</i>.</li>
+      <li>The charts appear in the list. Charts you already have are not duplicated; for charts with the same
+        name the app asks whether to replace them, keep both, or skip.</li>
+    </ol>
+    <p>You can make your own packs too: <b>Charts → Share charts as .zip…</b></p>
+  </div>
+
+  <h2>What it does</h2>
+  <div class="box">
+    <ul>
+      <li>Birth charts with a round wheel, planets, houses (Placidus or Koch) and aspects with orbs.</li>
+      <li>A birth form the keyboard never covers, with calendar and clock pickers and a live preview.</li>
+      <li>A world map that works offline: about 8,400 places, with the time zone and summer time of the birth date.</li>
+      <li>Overview, planetary weights, sensitive points and the Chaldean Lords, as in the original.</li>
+      <li>PDF export of the chart, search through your charts, chart packs to share.</li>
+      <li>Three looks: Night, Day and Classic DOS.</li>
+    </ul>
+    <p><b>Privacy:</b> no account, no internet needed, no tracking. Your charts stay on your phone, in
+      <code>Documents/donnie_horoscope</code>.</p>
+  </div>
+
+  <footer>
+    Calculations: ZodiacSigns V1.66 (1992). Map data: Natural Earth (public domain).
+    Symbols: Noto Sans Symbols (SIL OFL).<br>
+    <a href="https://github.com/markoboskoauroville/donnie-horoscope-releases">Project files on GitHub</a>
+  </footer>
+</main>
+<script>
+  // Turn on the buttons for files that are published; show version and size of the app.
+  function enable(id, label) {
+    var a = document.getElementById(id);
+    fetch(a.getAttribute('href'), { method: 'HEAD' }).then(function (r) {
+      if (r.ok) { a.classList.remove('off'); a.textContent = label; }
+    }).catch(function () {});
+  }
+  enable('manual', 'Open');
+  fetch('downloads/latest.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    if (!j) return;
+    var a = document.getElementById('apk');
+    a.classList.remove('off'); a.textContent = 'Download';
+    document.getElementById('apk-info').textContent = 'Version ' + j.version + ' · ' + (j.size / 1048576).toFixed(1) + ' MB · Android 7 or newer';
+  }).catch(function () {});
+  // screenshots, once published (img/shots/1.png ...)
+  (function load(i) {
+    var img = new Image();
+    img.onload = function () { img.alt = 'Screenshot ' + i; img.loading = 'lazy'; document.getElementById('shots').appendChild(img); if (i < 8) load(i + 1); };
+    img.src = 'img/shots/' + i + '.png';
+  })(1);
+</script>
+</body>
+</html>
