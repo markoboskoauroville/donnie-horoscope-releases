@@ -78,6 +78,18 @@
 
   <div class="shots" id="shots"></div>
 
+  <h2>What's new</h2>
+  <div class="box">
+    <p><b>Version <span id="ver">21</span></b></p>
+    <ul>
+      <li>Search through your charts by name, place or date, accents ignored.</li>
+      <li>Chart packs: open and share charts as .zip files, e.g. Silvana's Horoscopes Pack.</li>
+      <li>Charts are kept in <code>Documents/donnie_horoscope</code>, safe across reinstalls.</li>
+      <li>World map for the birthplace, with historical time zones and summer time.</li>
+      <li>New icon and a small section in memory of Donnie.</li>
+    </ul>
+  </div>
+
   <h2>Install the app</h2>
   <div class="box">
     <ol>
@@ -138,6 +150,9 @@
     var a = document.getElementById('apk');
     a.classList.remove('off'); a.textContent = 'Download';
     document.getElementById('apk-info').textContent = 'Version ' + j.version + ' · ' + (j.size / 1048576).toFixed(1) + ' MB · Android 7 or newer';
+    document.getElementById('ver').textContent = j.version;
+    var sum = document.createElement('small'); sum.textContent = 'SHA-256 ' + j.sha256; sum.style.overflowWrap = 'anywhere'; sum.style.fontSize = '.72rem';
+    document.getElementById('apk-info').parentNode.appendChild(sum);
   }).catch(function () {});
   // screenshots, once published (img/shots/1.png ...)
   (function load(i) {

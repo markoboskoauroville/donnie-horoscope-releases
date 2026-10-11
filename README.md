@@ -14,8 +14,8 @@ and the original DOS screens are kept as a *Classic* look in its honour. It is n
 
 | | |
 |---|---|
-| 📱 **The app** | [Latest release](https://github.com/markoboskoauroville/donnie-horoscope-releases/releases/latest): download `DonnieHoroscope-vN.apk` there and open it on your Android phone (allow installing from this source when asked). Installing over an older version keeps your charts. |
-| 📖 **User manual (PDF)** | [donnie-horoscope-manual.pdf](https://github.com/markoboskoauroville/donnie-horoscope-releases/raw/main/donnie-horoscope-manual.pdf): the illustrated guide to every screen (being prepared; the link works as soon as it is published). |
+| 📱 **The app** | [DonnieHoroscope-latest.apk](https://github.com/markoboskoauroville/donnie-horoscope-releases/raw/main/downloads/DonnieHoroscope-latest.apk) (version 21): download it and open it on your Android phone (allow installing from this source when asked). Installing over an older version keeps your charts. |
+| 📖 **User manual (PDF)** | [donnie-horoscope-manual.pdf](https://github.com/markoboskoauroville/donnie-horoscope-releases/raw/main/donnie-horoscope-manual.pdf): the illustrated guide to every screen. |
 | 🗂️ **Silvana's Horoscopes Pack** | [Silvanas-Horoscopes-Pack.zip](https://github.com/markoboskoauroville/donnie-horoscope-releases/raw/main/packs/Silvanas-Horoscopes-Pack.zip): 49 charts. In the app open **Charts → Open chart pack (.zip)…** and pick the downloaded file (or open the .zip with Donnie Horoscope from your file manager). |
 
 Inside the app, *More → Updates and manual → Open download page* brings you to this page.
