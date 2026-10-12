@@ -18,6 +18,9 @@
   main { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
   header { text-align: center; padding: 32px 0 8px; }
   header img { width: 148px; height: 148px; border-radius: 32px; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+  .webapp { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0 4px; }
+  .webapp .btn { font-size: 1.08rem; padding: 14px 22px; }
+  .btn.ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
   h1 { font-size: 2rem; margin: 18px 0 4px; letter-spacing: .01em; }
   .tag { color: var(--sub); margin: 0 auto; max-width: 34em; }
   h2 { font-size: 1.25rem; color: var(--gold); margin: 36px 0 12px; }
@@ -55,10 +58,21 @@
     <p class="tag">An astrology app for Android: a new life for <b>ZodiacSigns V1.66</b>, an MS-DOS astrology
       program from 1992. Same calculations, exactly. A modern interface made for fingers, and the original DOS
       screens kept as a <i>Classic</i> look. Named after Donnie, a much-loved dog.</p>
+    <div class="webapp">
+      <a class="btn" href="app/">Open the web app</a>
+      <a class="btn ghost" href="#downloads">Android app</a>
+    </div>
+    <p class="tag" style="font-size:.9rem">The web app runs in any browser, on a phone or a computer, with the same calculations.
+      Your charts stay in your browser.</p>
   </header>
 
-  <h2>Downloads</h2>
+  <h2 id="downloads">Downloads</h2>
   <div class="cards">
+    <div class="card">
+      <div class="ico">🌐</div>
+      <div class="txt"><b>Web app</b><small>In the browser, nothing to install. Charts are kept in your browser; open and save .HOR files and chart packs.</small></div>
+      <a class="btn" href="app/">Open</a>
+    </div>
     <div class="card">
       <div class="ico">📱</div>
       <div class="txt"><b>The app</b><small id="apk-info">Android 7 or newer</small></div>
@@ -80,13 +94,15 @@
 
   <h2>What's new</h2>
   <div class="box">
-    <p><b>Version <span id="ver">21</span></b></p>
+    <p><b>Version <span id="ver">23</span></b></p>
     <ul>
+      <li>Double-tap the chart to zoom in to 200%, drag to move around, double-tap again for the whole chart.</li>
+      <li>The web app: Donnie Horoscope in any browser, with the app's own calculations.</li>
+      <li>The real Donnie: a new icon under the zodiac stars, and his photo in the Donnie section.</li>
       <li>Search through your charts by name, place or date, accents ignored.</li>
       <li>Chart packs: open and share charts as .zip files, e.g. Silvana's Horoscopes Pack.</li>
       <li>Charts are kept in <code>Documents/donnie_horoscope</code>, safe across reinstalls.</li>
       <li>World map for the birthplace, with historical time zones and summer time.</li>
-      <li>New icon and a small section in memory of Donnie.</li>
     </ul>
   </div>
 
@@ -123,10 +139,11 @@
       <li>A world map that works offline: about 8,400 places, with the time zone and summer time of the birth date.</li>
       <li>Overview, planetary weights, sensitive points and the Chaldean Lords, as in the original.</li>
       <li>PDF export of the chart, search through your charts, chart packs to share.</li>
-      <li>Three looks: Night, Day and Classic DOS.</li>
+      <li>Three looks: Night, Day and Classic DOS (Classic is in the Android app).</li>
+      <li>Zoom into the chart: double-tap, drag, pinch.</li>
     </ul>
-    <p><b>Privacy:</b> no account, no internet needed, no tracking. Your charts stay on your phone, in
-      <code>Documents/donnie_horoscope</code>.</p>
+    <p><b>Privacy:</b> no account, no internet needed, no tracking. In the Android app your charts stay on your phone, in
+      <code>Documents/donnie_horoscope</code>; in the web app they stay in your browser, and nothing is sent anywhere.</p>
   </div>
 
   <footer>

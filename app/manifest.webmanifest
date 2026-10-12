@@ -1,0 +1,14 @@
+{
+  "name": "Donnie Horoscope",
+  "short_name": "Donnie",
+  "description": "Birth charts with the exact calculations of ZodiacSigns V1.66 (1992). Charts stay in this browser.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0B1026",
+  "theme_color": "#0B1026",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

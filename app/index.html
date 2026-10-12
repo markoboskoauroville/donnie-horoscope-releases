@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Donnie Horoscope</title>
+<meta name="description" content="Donnie Horoscope in the browser: birth charts with the exact calculations of ZodiacSigns V1.66 (1992). Charts stay in this browser.">
+<meta name="theme-color" content="#0B1026">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  @font-face { font-family: NotoSym; src: url(fonts/NotoSansSymbols.ttf) format("truetype"); font-display: block; }
+  :root {
+    --bg: #0B1026; --surface: #151C3D; --surface2: #1F2850; --ink: #EEF0FF; --sub: #9AA3C7;
+    --line: #6B76A8; --accent: #FFD54A; --on-accent: #1A1A1A; --hard: #FF5A5A;
+    --nav: 64px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button, input { font: inherit; color: inherit; }
+  .sym { font-family: NotoSym, sans-serif; }
+
+  /* phone: the chart stays on top, only the part below it scrolls (as in the Android app) */
+  #app { max-width: 760px; margin: 0 auto; height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
+  #chartbox { flex: none; }
+  #chartbox { position: relative; width: 100%; aspect-ratio: 4 / 3; background: var(--bg); overflow: hidden; }
+  #chart { width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: zoom-in; }
+  #chart.zoomed { touch-action: none; cursor: grab; }
+  #chart.zoomed.drag { cursor: grabbing; }
+  #zoomhint { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); font-size: 13px; color: var(--ink);
+              background: var(--surface2); padding: 4px 12px; border-radius: 99px; pointer-events: none; white-space: nowrap;
+              opacity: 0; transition: opacity .4s; }
+  #zoomhint.on { opacity: .92; }
+  header { flex: none; display: flex; align-items: center; gap: 6px; min-height: 56px; padding: 0 8px 0 16px; background: var(--surface); }
+  #title { flex: 1; font-weight: 700; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #actions { display: flex; gap: 4px; }
+  main { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 16px; }
+  nav { flex: none; background: var(--surface); padding-bottom: env(safe-area-inset-bottom); }
+  nav .in { display: flex; height: var(--nav); }
+  nav button { flex: 1; background: none; border: 0; color: var(--sub); font-size: 13px; line-height: 1.2; cursor: pointer; }
+  nav button b { display: block; font-size: 20px; font-weight: 400; }
+  nav button.on { color: var(--accent); font-weight: 700; }
+  body.editing nav { display: none; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 16px; border-radius: 14px;
+         border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-weight: 700; cursor: pointer; text-align: center; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .btn.small { min-height: 40px; padding: 4px 12px; border: 0; background: none; color: var(--accent); }
+  .btn:disabled { opacity: .4; cursor: default; }
+  .row2 { display: flex; gap: 10px; padding: 8px 16px; }
+  .row2 > * { flex: 1; }
+  .full { display: flex; margin: 8px 16px; }
+  .full > * { flex: 1; }
+  .note { color: var(--sub); font-size: 14px; padding: 10px 16px; margin: 0; }
+  h3 { color: var(--accent); font-size: 15px; margin: 0; padding: 18px 16px 6px; }
+  .card { background: var(--surface); border-radius: 16px; padding: 14px 16px; margin: 6px 16px; }
+  .card p { margin: 4px 0 0; }
+  .list-row { display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 4px 12px 4px 16px; cursor: pointer; border-radius: 12px; margin: 0 4px; }
+  .list-row:hover { background: color-mix(in srgb, var(--surface2) 60%, transparent); }
+  .list-row.sel { background: var(--surface2); }
+  .list-row .grow { flex: 1; min-width: 0; }
+  .list-row .t { font-size: 17px; font-weight: 700; }
+  .list-row .s { font-size: 13px; color: var(--sub); overflow-wrap: anywhere; }
+  .list-row .v { font-size: 17px; white-space: nowrap; }
+  .num { width: 44px; text-align: center; font-size: 22px; font-weight: 700; color: var(--accent); }
+  .icon-btn { min-width: 44px; min-height: 44px; border: 0; background: none; color: var(--sub); font-size: 18px; cursor: pointer; border-radius: 10px; }
+  canvas.g { flex: none; }
+  .search { display: flex; gap: 6px; padding: 14px 16px 0; }
+  input[type=text], input[type=search], input:not([type]) {
+    width: 100%; min-height: 52px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--surface2); color: var(--ink); font-size: 17px; outline: none; }
+  input:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--sub); }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; min-height: 52px; }
+  .seg button { flex: 1; border: 0; background: none; color: var(--sub); cursor: pointer; padding: 4px 6px; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button.on { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+  .form { padding: 8px 16px 16px; }
+  .form label { display: block; color: var(--sub); font-size: 13px; padding: 12px 2px 4px; }
+  .pair { display: flex; gap: 8px; align-items: stretch; }
+  .pair > input { flex: 1; min-width: 0; }
+  .pair > .seg { flex: 1.2; }
+  .pair > .btn { flex: none; }
+  .err { color: var(--hard); font-weight: 700; padding-top: 10px; min-height: 1.4em; }
+  .kv { display: flex; padding: 4px 0; }
+  .kv span:first-child { width: 150px; flex: none; color: var(--sub); }
+  .stats { display: flex; text-align: center; }
+  .stats div { flex: 1; padding: 4px 0; }
+  .stats b { display: block; font-size: 24px; }
+  .stats small { color: var(--sub); }
+  #grid { width: calc(100% - 24px); margin: 8px 12px; display: block; }
+  .photo { width: 100%; border-radius: 12px; display: block; margin-top: 10px; background: var(--surface2); }
+  a { color: var(--accent); }
+
+  /* overlays: map, dialogs */
+  .overlay { position: fixed; inset: 0; z-index: 20; background: var(--bg); display: flex; flex-direction: column; }
+  .overlay .top { display: flex; gap: 8px; padding: 8px 12px; background: var(--surface); }
+  .overlay .mid { position: relative; flex: 1; min-height: 0; }
+  .overlay canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+  .overlay .results { position: absolute; inset: 0; overflow: auto; background: var(--bg); }
+  .overlay .bottom { padding: 10px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--surface); white-space: pre-line; }
+  .overlay .bottom .btn { width: 100%; margin-top: 8px; }
+  .dlg { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .dlg .box { background: var(--surface); border-radius: 18px; padding: 18px; width: 100%; max-width: 420px; max-height: 90vh; overflow: auto; }
+  .dlg .box h4 { margin: 0 0 10px; font-size: 18px; }
+  .dlg .btns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+  .dlg .btns .btn { min-height: 44px; }
+  .checks { max-height: 50vh; overflow: auto; border: 1px solid var(--line); border-radius: 12px; padding: 6px 10px; }
+  .checks label { display: flex; gap: 10px; align-items: center; padding: 6px 0; }
+  #toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--nav) + 24px); z-index: 40; background: var(--surface2);
+           color: var(--ink); padding: 10px 16px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.4); max-width: 90vw; display: none; white-space: pre-line; }
+
+  /* wide screens: chart on the left, the pages beside it */
+  @media (min-width: 1000px) and (min-aspect-ratio: 5/4) {
+    #app { max-width: 1500px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(380px, 1fr);
+           grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 20px; padding: 12px 20px 0; }
+    #chartbox { grid-row: 1 / span 3; align-self: start; border-radius: 18px; max-height: calc(100dvh - 24px); }
+    header { border-radius: 16px 16px 0 0; }
+    nav { border-radius: 0 0 16px 16px; margin-bottom: 12px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="chartbox"><canvas id="chart" aria-label="Chart wheel"></canvas><div id="zoomhint"></div></div>
+  <header><div id="title">Donnie Horoscope</div><div id="actions"></div></header>
+  <main id="page"></main>
+  <nav><div class="in" id="nav"></div></nav>
+</div>
+<div id="toast"></div>
+<input type="file" id="file" multiple accept=".hor,.HOR,.zip,application/zip" hidden>
+<script src="donnie.js"></script>
+<script src="zip.js"></script>
+<script src="map.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
